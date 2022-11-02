@@ -1,8 +1,6 @@
 import styled, { css } from 'styled-components/native';
 
 export const Container = styled.View`
-  ${({ theme }) => css`
-    flex: 1;
-    margin: 16px 16px;
-  `}
+  flex: 1;
+  margin: 0 auto;
 `;

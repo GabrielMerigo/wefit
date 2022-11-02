@@ -18,3 +18,7 @@ export const Title = styled.Text`
     font-size: 20px;
   `}
 `;
+
+export const Icon = styled.TouchableOpacity`
+  background: transparent;
+`;

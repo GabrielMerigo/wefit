@@ -8,6 +8,7 @@ export const Container = styled.View`
     box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.25);
     border-radius: 4px;
     padding: 16px 12px;
+    margin-bottom: 16px;
   `}
 `;
 

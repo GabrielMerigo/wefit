@@ -1,13 +1,17 @@
-import * as S from './styles';
 import { Header } from "../../components/Header";
-import { RepositoryItem } from '../../components/RepositoryItem';
 import RepositoryList from '../../components/RepositoryList';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Modal } from '../../components/Modal';
+
+import * as S from './styles';
 
 export default function Home(){
+
   return (
-    <S.Container>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Modal />
       <Header />
       <RepositoryList />
-    </S.Container>
+    </GestureHandlerRootView>
   )
 }

@@ -1,6 +1,6 @@
 
 import { NavigationContainer } from '@react-navigation/native';
-import { StatusBar } from 'react-native';
+import { StatusBar, Text, TouchableOpacity, View } from 'react-native';
 import { ThemeProvider } from 'styled-components';
 
 import { 
@@ -15,6 +15,10 @@ import {
 
 import Routes from './src/routes';
 import theme from './src/styles/theme';
+import { Modalize } from 'react-native-modalize';
+
+import { useRef } from 'react';
+import { ModalContextProvider } from './src/context/ModalContext';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -24,11 +28,13 @@ export default function App() {
   });
 
   return (
-    <ThemeProvider theme={theme}>
-      <NavigationContainer>
-        <StatusBar hidden={true} />
-        {fontsLoaded && <Routes />}
-      </NavigationContainer>
-    </ThemeProvider>
+    <ModalContextProvider>
+      <ThemeProvider theme={theme}>
+        <NavigationContainer>
+          <StatusBar hidden={true} />
+          {fontsLoaded && <Routes />}
+        </NavigationContainer>
+      </ThemeProvider>
+    </ModalContextProvider>
   );
 }

@@ -1,12 +1,13 @@
 import * as S from './styles'
 import { Entypo, Ionicons } from '@expo/vector-icons'; 
 import theme from '../../styles/theme';
+import { formatString } from '../../utils/formatString';
 
 export function RepositoryItem(){
   return (
     <S.Container>
       <S.Header>
-        <S.Title>appswefit/create-react-app</S.Title>
+        <S.Title>{formatString('appswefit/create-react-app')}</S.Title>
         <S.Logo source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Typescript_logo_2020.svg/1024px-Typescript_logo_2020.svg.png' }} />
       </S.Header>
 
