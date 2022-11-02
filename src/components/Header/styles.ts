@@ -1,7 +1,19 @@
-import styled, { css } from 'styled-components/native';
+import styled, { css, DefaultTheme } from 'styled-components/native';
+import { HeaderProps } from '.';
 
-export const Container = styled.View`
-  ${({ theme }) => css`
+const modifiers = {
+  isHeaderToBackBackground: (theme: DefaultTheme) => css`
+    justify-content: flex-start;
+    background: ${theme.colors.dark};
+  `,
+  isHeaderToBackFont: (theme: DefaultTheme) => css`
+    color: ${theme.colors.white};
+    margin-left: 16px;
+  `,
+}
+
+export const Container = styled.View<HeaderProps>`
+  ${({ theme, isHeaderToBack }) => css`
     height: 56px;
     display: flex;
     flex-direction: row;
@@ -9,13 +21,17 @@ export const Container = styled.View`
     align-items: center;
     padding: 14px;
     background: ${theme.colors.white};
+
+    ${isHeaderToBack && modifiers.isHeaderToBackBackground(theme)}
   `}
 `;
 
-export const Title = styled.Text`
-  ${({ theme }) => css`
+export const Title = styled.Text<HeaderProps>`
+  ${({ theme, isHeaderToBack }) => css`
     font-family: ${theme.fonts.roboto_medium};
     font-size: 20px;
+
+    ${isHeaderToBack && modifiers.isHeaderToBackFont(theme)}
   `}
 `;
 

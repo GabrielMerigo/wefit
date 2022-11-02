@@ -2,7 +2,11 @@ import * as S from './styles';
 import { RepositoryItem } from '../../components/RepositoryItem';
 import { FlatList } from 'react-native';
 
-export default function RepositoryList(){
+type RepositoryListProps = {
+  isFavorite?: boolean
+}
+
+export default function RepositoryList({ isFavorite }: RepositoryListProps){
   const fakeData = [9, 2, 3, 5, 99, 7, 55, 4]
 
   return (
@@ -12,7 +16,7 @@ export default function RepositoryList(){
         keyExtractor={(item) => item}
         data={fakeData}
         renderItem={({ item }) => (
-          <RepositoryItem />
+          <RepositoryItem isFavorite={isFavorite} />
         )}
       />
       

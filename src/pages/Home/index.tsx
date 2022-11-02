@@ -6,7 +6,6 @@ import { Modal } from '../../components/Modal';
 import * as S from './styles';
 
 export default function Home(){
-
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Modal />

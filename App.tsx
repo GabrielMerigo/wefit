@@ -1,6 +1,6 @@
 
 import { NavigationContainer } from '@react-navigation/native';
-import { StatusBar, Text, TouchableOpacity, View } from 'react-native';
+import { StatusBar } from 'react-native';
 import { ThemeProvider } from 'styled-components';
 
 import { 
@@ -13,7 +13,7 @@ import {
   Inter_700Bold
 } from '@expo-google-fonts/inter';
 
-import Routes from './src/routes';
+import Routes from './src/routes/index.routes';
 import theme from './src/styles/theme';
 import { Modalize } from 'react-native-modalize';
 

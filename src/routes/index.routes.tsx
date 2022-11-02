@@ -5,11 +5,13 @@ import theme from "../styles/theme";
 
 import { AntDesign, Entypo } from '@expo/vector-icons';
 import useModal from "../hooks/useModal";
+import { StackRoutes } from "./stack.routes";
+import Favorites from "../pages/Favorites";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
 export default function Routes(){
-  const { modalIsOpen } = useModal();
+  const { showTabBottom } = useModal();
 
   return (
     <Navigator
@@ -19,7 +21,7 @@ export default function Routes(){
           paddingBottom: 10,
           borderTopWidth: 0,
           height: 60,
-          display: modalIsOpen ? 'none' : 'flex'
+          display: 'none'
         },
         tabBarLabelStyle: {
           fontFamily: theme.fonts.roboto_medium
@@ -28,7 +30,7 @@ export default function Routes(){
     >
       <Screen 
         name="Repositórios" 
-        component={Home} 
+        component={StackRoutes} 
         options={{ 
           headerShown: false, 
           tabBarIcon: ({ focused, size }) => (
@@ -37,9 +39,9 @@ export default function Routes(){
         }} 
       />
 
-      <Screen 
+      <Screen
         name="Favoritos" 
-        component={Home} 
+        component={Favorites} 
         options={{ 
           headerShown: false, 
           tabBarIcon: ({ focused, size }) => (

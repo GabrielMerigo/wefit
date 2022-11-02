@@ -4,7 +4,7 @@ type ModalProviderProps = {
   ref: RefObject<RefProps>;
   onOpen: () => void;
   onClose: () => void;
-  modalIsOpen: boolean
+  showTabBottom: boolean
 }
 
 type RefProps = {
@@ -21,20 +21,20 @@ export const ModalProvider = createContext({} as ModalProviderProps)
 
 export function ModalContextProvider({ children }: ModalContextProviderProps){
   const modalRef = useRef<RefProps>(null);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [showTabBottom, setShowTabBottom] = useState(false);
 
   function onOpen(){
     modalRef.current?.open();
-    setModalIsOpen(true)
+    setShowTabBottom(true)
   }
 
   function onClose(){
     modalRef.current?.close();
-    setModalIsOpen(false)
+    setShowTabBottom(false)
   }
 
   return (
-    <ModalProvider.Provider value={{ onOpen, onClose, ref: modalRef, modalIsOpen }}>
+    <ModalProvider.Provider value={{ onOpen, onClose, ref: modalRef, showTabBottom }}>
       {children}
     </ModalProvider.Provider>
   )
