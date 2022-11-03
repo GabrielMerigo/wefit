@@ -10,7 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as S from './styles';
 import { Modalize } from "react-native-modalize";
 import { useRef, useState } from "react";
-import { useRoute } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { RepositoryProps } from "../../contexts/RepositoryContext";
 import useRepository from "../../hooks/useRepository";
 
@@ -19,6 +19,7 @@ type Routes = {
 } & RepositoryProps;
 
 export default function RepositoryDetails(){
+  const { navigate, goBack } = useNavigation();
   const modalRef = useRef<ModalRefProps>(null);
   const router = useRoute();
   const collectionKey = 'wefit:favorites_repositories'
@@ -38,10 +39,8 @@ export default function RepositoryDetails(){
     full_name, 
     language, 
     html_url, 
-    isFavorite: favorite
+    isFavorite
   } = router.params as Routes;
-
-  const [isFavorite, setIsFavorite] = useState(favorite);
 
   async function favoriteRepository(){
     const currentRepository = { 
@@ -54,24 +53,29 @@ export default function RepositoryDetails(){
       stargazers_count
     }
 
-    setFavoritesRepositories(() => [
+    const newFavoritaRepositories = [
       ...favoritesRepositories, 
       currentRepository
-    ])
+    ]
 
-    await AsyncStorage.setItem(collectionKey, JSON.stringify(favoritesRepositories));
+    setFavoritesRepositories(newFavoritaRepositories)
+    await AsyncStorage.setItem(collectionKey, JSON.stringify(newFavoritaRepositories));
 
     const repositoriesFiltered = repositories.filter(repository => repository.id !== id);
     setRepositories(repositoriesFiltered);
-    setIsFavorite(!isFavorite);
+    navigate('Favoritos' as never, {} as never)
+    modalRef.current?.close();
+    goBack();
   }
 
   async function disfavorRepository() {
     const repositoriesFiltered = favoritesRepositories.filter(repository => repository.id !== id);
-    setFavoritesRepositories(() => repositoriesFiltered);
-
-    await AsyncStorage.setItem(collectionKey, JSON.stringify(favoritesRepositories));
-    setIsFavorite(!isFavorite);
+    setFavoritesRepositories(repositoriesFiltered);
+    
+    await AsyncStorage.setItem(collectionKey, JSON.stringify(repositoriesFiltered));
+  
+    modalRef.current?.close();
+    goBack();
   }
 
 

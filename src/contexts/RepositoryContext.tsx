@@ -35,7 +35,7 @@ export function RepositoryContextProvider({ children }: RepositoryContextProps){
       const collectionKey = 'wefit:favorites_repositories';
       const data = await AsyncStorage.getItem(collectionKey);
       const parsedData = JSON.parse(data!);
-      setFavoritesRepositories(parsedData);
+      setFavoritesRepositories(parsedData || []);
     }
 
     getData();

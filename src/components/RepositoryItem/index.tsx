@@ -48,12 +48,14 @@ export function RepositoryItem({ id, isFavorite, description, full_name, owner, 
       stargazers_count
     }
 
-    setFavoritesRepositories(() => [
+    const newFavoritesRepositories = [
       ...favoritesRepositories, 
       currentRepository
-    ])
+    ]
 
-    await AsyncStorage.setItem(collectionKey, JSON.stringify(favoritesRepositories));
+    setFavoritesRepositories(newFavoritesRepositories)
+
+    await AsyncStorage.setItem(collectionKey, JSON.stringify(newFavoritesRepositories));
 
     const repositoriesFiltered = repositories.filter(repository => repository.id !== id);
     setRepositories(repositoriesFiltered);

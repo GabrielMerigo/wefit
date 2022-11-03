@@ -11,7 +11,7 @@ export default function Favorites(){
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Header />
-      {!favoritesRepositories.length
+      {!favoritesRepositories?.length
         ? <EmptyText title="Ops... Parece que você ainda não favoritou nenhum repositório." /> 
         : <RepositoryList data={favoritesRepositories} isFavorite />
       }

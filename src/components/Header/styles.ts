@@ -53,6 +53,8 @@ export const ContainerInput = styled.View`
     width: 358px;
     height: 56px;
     background: ${theme.colors.gray_light};
+    border-bottom-width: 1px;
+    border-color: ${theme.colors.gray_dark};
   `}
 `;
 
