@@ -55,4 +55,5 @@ export const Buttons = styled.View`
   height: 126px;
   position: absolute;
   bottom: 0;
+  padding: 10px 10px;
 `;

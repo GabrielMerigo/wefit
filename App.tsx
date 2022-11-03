@@ -15,10 +15,6 @@ import {
 
 import Routes from './src/routes/index.routes';
 import theme from './src/styles/theme';
-import { Modalize } from 'react-native-modalize';
-
-import { useRef } from 'react';
-import { ModalContextProvider } from './src/context/ModalContext';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -28,13 +24,11 @@ export default function App() {
   });
 
   return (
-    <ModalContextProvider>
-      <ThemeProvider theme={theme}>
-        <NavigationContainer>
-          <StatusBar hidden={true} />
-          {fontsLoaded && <Routes />}
-        </NavigationContainer>
-      </ThemeProvider>
-    </ModalContextProvider>
+    <ThemeProvider theme={theme}>
+      <NavigationContainer>
+        <StatusBar hidden={true} />
+        {fontsLoaded && <Routes />}
+      </NavigationContainer>
+    </ThemeProvider>
   );
 }

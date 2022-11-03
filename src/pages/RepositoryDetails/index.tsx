@@ -20,8 +20,30 @@ export default function RepositoryDetails(){
         </S.Language>
       </S.Content>
       <S.Buttons>
-        <Button color="blue"  title="teste"/>
-        <Button color="white"  title="teste"/>
+        <Button
+          width="100%"
+          color={theme.colors.blue}
+          background={theme.colors.white}
+          title="Ver Repositório"
+          iconName="link"
+        />
+        <Button
+          width="100%"
+          color={theme.colors.dark}
+          background={theme.colors.yellow}
+          title="Favoritar"
+          iconName="star"
+          style={{ marginTop: 10 }}
+        />
+        <Button
+          hasBorder
+          width="100%"
+          color={theme.colors.dark}
+          background={theme.colors.white}
+          title="Desfavoritar"
+          iconName="star-outline"
+          style={{ marginTop: 10 }}
+        />
       </S.Buttons>
     </S.Container>
   )

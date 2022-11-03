@@ -13,7 +13,7 @@ export default function RepositoryList({ isFavorite }: RepositoryListProps){
     <S.Container>
       <FlatList
         showsVerticalScrollIndicator={false}
-        keyExtractor={(item) => item}
+        keyExtractor={(item) => String(item)}
         data={fakeData}
         renderItem={({ item }) => (
           <RepositoryItem isFavorite={isFavorite} />

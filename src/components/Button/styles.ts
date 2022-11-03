@@ -2,22 +2,24 @@ import styled, { css, DefaultTheme } from "styled-components/native";
 import { ButtonProps } from ".";
 
 const modifiers = {
-  buttonBlue: (theme: DefaultTheme) => css`
-    background: ${theme.colors.blue};
-  `,
-  buttonWhite: (theme: DefaultTheme) => css`
-    background: ${theme.colors.white};
+  hasBorder: (theme: DefaultTheme) => css`
+    border: 1px solid ${theme.colors.dark};
   `
 }
 
+
 export const Container = styled.TouchableOpacity<ButtonProps>`
-  ${({ theme, color }) => css`
-    width: 174px;
+  ${({ theme, background, width = '174px', hasBorder }) => css`
+    width: ${width};
     height: 42px;
     border-radius: 4px;
-
-    ${color === 'blue' && modifiers.buttonBlue(theme)}
-    ${color === 'white' && modifiers.buttonWhite(theme)}
+    background: ${background};
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    justify-content:center;
+    ${hasBorder && modifiers.hasBorder(theme)};
   `}
 `;
 
@@ -27,6 +29,10 @@ export const Title = styled.Text<ButtonProps>`
     text-transform: uppercase;
     line-height: 40px;
     text-align: center;
-    color: ${color === 'blue' ? theme.colors.white : theme.colors.blue}
+    color: ${color};
   `}
+`;
+
+export const Icon = styled.View`
+  margin-left: 10px;
 `;
