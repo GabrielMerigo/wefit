@@ -1,18 +1,19 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Button } from "../../components/Button";
 import { Header, ModalRefProps } from "../../components/Header";
-import theme from "../../styles/theme";
 import { formatString } from "../../utils/formatString";
 import { Portal } from 'react-native-portalize';
 import { Linking } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import * as S from './styles';
 import { Modalize } from "react-native-modalize";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { RepositoryProps } from "../../contexts/RepositoryContext";
+
+import theme from "../../styles/theme";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import useRepository from "../../hooks/useRepository";
+import * as S from './styles';
 
 type Routes = {
   isFavorite: boolean;
@@ -63,6 +64,7 @@ export default function RepositoryDetails(){
 
     const repositoriesFiltered = repositories.filter(repository => repository.id !== id);
     setRepositories(repositoriesFiltered);
+
     navigate('Favoritos' as never, {} as never)
     modalRef.current?.close();
     goBack();
@@ -71,7 +73,7 @@ export default function RepositoryDetails(){
   async function disfavorRepository() {
     const repositoriesFiltered = favoritesRepositories.filter(repository => repository.id !== id);
     setFavoritesRepositories(repositoriesFiltered);
-    
+  
     await AsyncStorage.setItem(collectionKey, JSON.stringify(repositoriesFiltered));
   
     modalRef.current?.close();

@@ -1,4 +1,5 @@
 import * as S from './styles';
+
 import { Ionicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons'; 
 import { useNavigation } from '@react-navigation/native';
@@ -6,10 +7,10 @@ import { Modalize } from 'react-native-modalize';
 import { useRef, useState } from 'react';
 import { Button } from '../Button';
 import { Portal } from 'react-native-portalize';
+import { RepositoryProps } from '../../contexts/RepositoryContext';
 
 import theme from '../../styles/theme';
 import api from '../../services/api';
-import { RepositoryProps } from '../../contexts/RepositoryContext';
 import useRepository from '../../hooks/useRepository';
 
 export type HeaderProps = {

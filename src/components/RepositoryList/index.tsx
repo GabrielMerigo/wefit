@@ -1,12 +1,11 @@
 import * as S from './styles';
 import { RepositoryItem } from '../../components/RepositoryItem';
 import { FlatList } from 'react-native';
-import useRepository from '../../hooks/useRepository';
-import { FavoriteRepositories, RepositoryProps } from '../../contexts/RepositoryContext';
+import { RepositoryProps } from '../../contexts/RepositoryContext';
 
 type RepositoryListProps = {
   isFavorite?: boolean;
-  data: FavoriteRepositories[] | RepositoryProps[];
+  data: RepositoryProps[];
 }
 
 export default function RepositoryList({ isFavorite, data }: RepositoryListProps){

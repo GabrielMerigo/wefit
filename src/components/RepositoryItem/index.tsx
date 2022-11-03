@@ -1,4 +1,3 @@
-// @ts-nocheck
 import * as S from './styles'
 import { Entypo, Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -24,7 +23,7 @@ export function RepositoryItem({ id, isFavorite, description, full_name, owner, 
 
   function handleOpenDetails(){
     navigate(
-      'RepositoryDetails', 
+      'RepositoryDetails' as never, 
       { 
         id, 
         description,  
@@ -33,7 +32,7 @@ export function RepositoryItem({ id, isFavorite, description, full_name, owner, 
         language,
         html_url,
         isFavorite: !!isFavorite
-      }
+      } as never
     );
   }
 
