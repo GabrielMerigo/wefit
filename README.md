@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img alt="WeFit" height="80" title="WeFit" src="./logo_dark.png" />
+  <img alt="WeFit" height="80" title="WeFit" src="./Logo-Dark.png" />
 </h1>
 
 <p align="center">
