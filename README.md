@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img alt="GoFinances" height="80" title="WeFit" src="./logo_dark.png" />
+  <img alt="WeFit" height="80" title="WeFit" src="./logo_dark.png" />
 </h1>
 
 <p align="center">
@@ -13,7 +13,7 @@
 ![cover](./assets/Home.png)
 ![cover](./assets/Detalhes.png)
 
-## 💻 Projeto
+## 💻 Project
 WeFit is an application to search all repositories from Github's user.
 
 ## ✨ Technologies
