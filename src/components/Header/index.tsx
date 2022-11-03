@@ -1,24 +1,30 @@
 import * as S from './styles';
 import { Ionicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons'; 
-import theme from '../../styles/theme';
 import { useNavigation } from '@react-navigation/native';
 import { Modalize } from 'react-native-modalize';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Button } from '../Button';
 import { Portal } from 'react-native-portalize';
 
+import theme from '../../styles/theme';
+import api from '../../services/api';
+import { RepositoryProps } from '../../contexts/RepositoryContext';
+import useRepository from '../../hooks/useRepository';
+
 export type HeaderProps = {
   isHeaderToBack?: boolean;
+  closeModalFavorite?: () => void;
 }
 
 export type ModalRefProps = {
   open: () => {},
   close: () => {}
 }
-
-export function Header({ isHeaderToBack }: HeaderProps){
-  const { goBack } = useNavigation();
+export function Header({ isHeaderToBack, closeModalFavorite }: HeaderProps){
+  const { goBack: back } = useNavigation();
+  const { setRepositories } = useRepository();
+  const [inputValue, setInputValue] = useState('');
   const modalRef = useRef<ModalRefProps>(null);
 
   function onOpen(){
@@ -29,10 +35,25 @@ export function Header({ isHeaderToBack }: HeaderProps){
     modalRef.current?.close();
   }
 
+  function goBack(){
+    back();
+    closeModalFavorite!();
+  }
+
+  async function fetchUser(repositoryName: string){
+    try{
+      const { data } = await api.get<RepositoryProps[]>(`/${repositoryName}/repos`);
+      setRepositories(data);
+    }catch(err){
+      console.log(err)
+    }
+  }
+
   return (
     <>
       <Portal>
         <Modalize
+          keyboardAvoidingBehavior='height'
           closeOnOverlayTap={false}
           handleStyle={{ 
             marginTop: 30,
@@ -46,18 +67,18 @@ export function Header({ isHeaderToBack }: HeaderProps){
             <S.TitleButton>Alterar usuário selecionado</S.TitleButton>
             <S.ContainerInput>
               <S.Label>Nome do usuário</S.Label>
-              <S.Input />
+              <S.Input onChangeText={(e: any) => setInputValue(e)} />
             </S.ContainerInput>
             <S.Buttons>
               <Button color={theme.colors.blue} title="Cancelar" background={theme.colors.white} onPress={onClose} />
-              <Button color={theme.colors.white} title='Salvar' background={theme.colors.blue} />
+              <Button color={theme.colors.white} title="Salvar" background={theme.colors.blue} onPress={() => fetchUser(inputValue)} />
             </S.Buttons>
           </S.ContainerButton>
         </Modalize>
       </Portal>
       <S.Container isHeaderToBack={isHeaderToBack}>
         {isHeaderToBack && (
-          <S.Icon onPress={() => goBack()} style={{ marginLeft: 10 }}>
+          <S.Icon onPress={goBack} style={{ marginLeft: 10 }}>
             <AntDesign name="arrowleft" size={20} color={theme.colors.white} />
           </S.Icon>
         )}

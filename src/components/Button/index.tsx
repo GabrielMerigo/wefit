@@ -7,7 +7,7 @@ export type ButtonProps = {
   color: string;
   background?: string;
   title: string;
-  iconName: string;
+  iconName?: string;
   width?: string;
   hasBorder?: boolean;
 } & TouchableOpacityProps;

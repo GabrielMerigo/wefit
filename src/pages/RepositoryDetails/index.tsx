@@ -1,50 +1,139 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Button } from "../../components/Button";
-import { Header } from "../../components/Header";
+import { Header, ModalRefProps } from "../../components/Header";
 import theme from "../../styles/theme";
 import { formatString } from "../../utils/formatString";
+import { Portal } from 'react-native-portalize';
+import { Linking } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import * as S from './styles';
+import { Modalize } from "react-native-modalize";
+import { useRef, useState } from "react";
+import { useRoute } from '@react-navigation/native'
+import { RepositoryProps } from "../../contexts/RepositoryContext";
+import useRepository from "../../hooks/useRepository";
+
+type Routes = {
+  isFavorite: boolean;
+} & RepositoryProps;
 
 export default function RepositoryDetails(){
+  const modalRef = useRef<ModalRefProps>(null);
+  const router = useRoute();
+  const collectionKey = 'wefit:favorites_repositories'
+
+  const { 
+    setFavoritesRepositories, 
+    favoritesRepositories,
+    repositories,
+    setRepositories
+  } = useRepository();
+
+  const { 
+    description, 
+    owner, 
+    id, 
+    stargazers_count, 
+    full_name, 
+    language, 
+    html_url, 
+    isFavorite: favorite
+  } = router.params as Routes;
+
+  const [isFavorite, setIsFavorite] = useState(favorite);
+
+  async function favoriteRepository(){
+    const currentRepository = { 
+      id,
+      description,  
+      full_name,
+      owner,
+      language,
+      html_url,
+      stargazers_count
+    }
+
+    setFavoritesRepositories(() => [
+      ...favoritesRepositories, 
+      currentRepository
+    ])
+
+    await AsyncStorage.setItem(collectionKey, JSON.stringify(favoritesRepositories));
+
+    const repositoriesFiltered = repositories.filter(repository => repository.id !== id);
+    setRepositories(repositoriesFiltered);
+    setIsFavorite(!isFavorite);
+  }
+
+  async function disfavorRepository() {
+    const repositoriesFiltered = favoritesRepositories.filter(repository => repository.id !== id);
+    setFavoritesRepositories(() => repositoriesFiltered);
+
+    await AsyncStorage.setItem(collectionKey, JSON.stringify(favoritesRepositories));
+    setIsFavorite(!isFavorite);
+  }
+
+
+  function closeModalFavorite(){
+    modalRef.current?.close();
+  }
+
   return (
-    <S.Container>
-      <Header isHeaderToBack />
-      <S.Content>
-        <S.Title>{formatString('appswefit/create-react-app')}</S.Title>
-        <S.Description>Yarn Workspaces Monorepo support for Create-React-App / React-Scripts.</S.Description>
-        <S.Subdescription>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce porta magna sit amet ante faucibus sodales. Ut tempor massa risus, vel consectetur diam efficitur in. Suspendisse ut enim augue. Donec ullamcorper odio in tellus feugiat venenatis. Phasellus eleifend nisl neque, a pulvinar nisl mattis ac. Phasellus vitae velit eu dui tempus ullamcorper eget ut metus. Proin vestibulum sodales justo, vitae iaculis ipsum volutpat a. Nam vel leo vitae leo volutpat varius.</S.Subdescription>
-        <S.Language>
-          <Ionicons name="md-ellipse" size={12} color={theme.colors.red} />
-          <S.LanguageTitle>Typescript</S.LanguageTitle>
-        </S.Language>
-      </S.Content>
-      <S.Buttons>
-        <Button
-          width="100%"
-          color={theme.colors.blue}
-          background={theme.colors.white}
-          title="Ver Repositório"
-          iconName="link"
-        />
-        <Button
-          width="100%"
-          color={theme.colors.dark}
-          background={theme.colors.yellow}
-          title="Favoritar"
-          iconName="star"
-          style={{ marginTop: 10 }}
-        />
-        <Button
-          hasBorder
-          width="100%"
-          color={theme.colors.dark}
-          background={theme.colors.white}
-          title="Desfavoritar"
-          iconName="star-outline"
-          style={{ marginTop: 10 }}
-        />
-      </S.Buttons>
-    </S.Container>
+    <>
+      <Portal>
+        <Modalize
+          alwaysOpen={130}
+          withHandle={false}
+          ref={modalRef}
+        >
+          <S.Buttons>
+            <Button
+              width="100%"
+              color={theme.colors.blue}
+              background={theme.colors.white}
+              title="Ver Repositório"
+              iconName="link"
+              onPress={() => Linking.openURL(html_url)}
+            />
+            {!isFavorite ? (
+              <Button
+                onPress={favoriteRepository}
+                width="100%"
+                color={theme.colors.dark}
+                background={theme.colors.yellow}
+                title="Favoritar"
+                iconName="star"
+                style={{ marginTop: 10 }}
+              />
+            ) : (
+              <Button
+                onPress={disfavorRepository}
+                hasBorder
+                width="100%"
+                color={theme.colors.dark}
+                background={theme.colors.white}
+                title="Desfavoritar"
+                iconName="star-outline"
+                style={{ marginTop: 10 }}
+              />
+            )}
+   
+          </S.Buttons>
+        </Modalize>
+      </Portal>
+
+      <S.Container>
+        <Header closeModalFavorite={closeModalFavorite} isHeaderToBack />
+        <S.Content>
+          <S.Title>{formatString(full_name)}</S.Title>
+          <S.Description>{description}</S.Description>
+          <S.Language>
+            <Ionicons name="md-ellipse" size={12} color={theme.colors.red} />
+            <S.LanguageTitle>{language}</S.LanguageTitle>
+          </S.Language>
+        </S.Content>
+      </S.Container>
+    </>
   )
 }

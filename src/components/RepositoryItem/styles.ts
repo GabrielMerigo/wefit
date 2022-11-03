@@ -3,7 +3,6 @@ import styled, { css } from 'styled-components/native';
 export const Container = styled.TouchableOpacity`
   ${({ theme }) => css`
     width: 359px;
-    height: 167px;
     background: ${theme.colors.white};
     box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.25);
     border-radius: 4px;

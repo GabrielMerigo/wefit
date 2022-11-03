@@ -6,13 +6,14 @@ const { Navigator, Screen } = createStackNavigator();
 import Home from "../pages/Home";
 import RepositoryDetails from "../pages/RepositoryDetails";
 
-export function StackRoutes() {
+export function StackRoutesHome() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Navigator screenOptions={{ headerShown: false }}>
         <Screen
           name="Home"
           component={Home}
+          
         />
         <Screen
           name="RepositoryDetails"

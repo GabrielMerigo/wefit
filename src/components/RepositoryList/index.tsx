@@ -1,25 +1,25 @@
 import * as S from './styles';
 import { RepositoryItem } from '../../components/RepositoryItem';
 import { FlatList } from 'react-native';
+import useRepository from '../../hooks/useRepository';
+import { FavoriteRepositories, RepositoryProps } from '../../contexts/RepositoryContext';
 
 type RepositoryListProps = {
-  isFavorite?: boolean
+  isFavorite?: boolean;
+  data: FavoriteRepositories[] | RepositoryProps[];
 }
 
-export default function RepositoryList({ isFavorite }: RepositoryListProps){
-  const fakeData = [9, 2, 3, 5, 99, 7, 55, 4]
-
+export default function RepositoryList({ isFavorite, data }: RepositoryListProps){
   return (
     <S.Container>
       <FlatList
         showsVerticalScrollIndicator={false}
-        keyExtractor={(item) => String(item)}
-        data={fakeData}
+        keyExtractor={(item) => String(item.full_name)}
+        data={data}
         renderItem={({ item }) => (
-          <RepositoryItem isFavorite={isFavorite} />
+          <RepositoryItem isFavorite={isFavorite} {...item} />
         )}
       />
-      
     </S.Container>
   )
 }

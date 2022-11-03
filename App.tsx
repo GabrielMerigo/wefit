@@ -2,6 +2,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'react-native';
 import { ThemeProvider } from 'styled-components';
+import { RepositoryContextProvider } from './src/contexts/RepositoryContext';
 
 import { 
   useFonts,
@@ -24,11 +25,13 @@ export default function App() {
   });
 
   return (
-    <ThemeProvider theme={theme}>
-      <NavigationContainer>
-        <StatusBar hidden={true} />
-        {fontsLoaded && <Routes />}
-      </NavigationContainer>
-    </ThemeProvider>
+    <RepositoryContextProvider>
+      <ThemeProvider theme={theme}>
+        <NavigationContainer>
+          <StatusBar hidden={true} />
+          {fontsLoaded && <Routes />}
+        </NavigationContainer>
+      </ThemeProvider>
+    </RepositoryContextProvider>
   );
 }

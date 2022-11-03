@@ -51,9 +51,5 @@ export const LanguageTitle = styled.Text`
 `;
 
 export const Buttons = styled.View`
-  width: 390px;
-  height: 126px;
-  position: absolute;
-  bottom: 0;
-  padding: 10px 10px;
+  padding: 10px 15px;
 `;

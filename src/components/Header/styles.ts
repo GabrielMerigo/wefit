@@ -83,7 +83,3 @@ export const ButtonTitle = styled.Text`
     margin-left: 12px;
   `}
 `;
-
-export const Cancel = styled.TouchableOpacity``;
-
-export const Save = styled.TouchableOpacity``;

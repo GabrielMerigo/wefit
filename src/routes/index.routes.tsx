@@ -1,11 +1,10 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
 import theme from "../styles/theme";
 
 import { AntDesign, Entypo } from '@expo/vector-icons';
-import { StackRoutes } from "./stack.routes";
-import Favorites from "../pages/Favorites";
 import { Host } from 'react-native-portalize';
+import { StackRoutesHome } from "./stack.routes.home";
+import { StackRoutesFavorites } from "./stack.routes.favorites";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -27,7 +26,7 @@ export default function Routes(){
       >
         <Screen 
           name="Repositórios" 
-          component={StackRoutes} 
+          component={StackRoutesHome} 
           options={{ 
             headerShown: false, 
             tabBarIcon: ({ focused, size }) => (
@@ -38,7 +37,7 @@ export default function Routes(){
 
         <Screen
           name="Favoritos" 
-          component={Favorites} 
+          component={StackRoutesFavorites} 
           options={{ 
             headerShown: false, 
             tabBarIcon: ({ focused, size }) => (
