@@ -8,10 +8,10 @@
   <img src="https://img.shields.io/static/v1?label=Ignite&message=ReactNative&color=4a1d0f&labelColor=ddfa20" alt="NLW 06" />
 </p>
 
-
+![cover](./assets/SplashScreen.png)
 ![cover](./assets/Home-Fav.png)
 ![cover](./assets/Home.png)
-![cover](./assets/SplashScreen.png)
+![cover](./assets/Detalhes.png)
 
 ## 💻 Projeto
 WeFit is an application to search all repositories from Github's user.
